@@ -1,0 +1,141 @@
+Dapper SQl Methods:
+		Query
+
+		QueryAsync
+
+		QueryFirst
+
+		QueryFirstAsync
+
+		QueryFirstOrDefault
+
+		QueryFirstOrDefaultAsync
+
+		QuerySingle
+
+		QuerySingleAsync
+		
+		QueryMultiple
+		
+		QueryMultipleAsync
+		
+		QuerySingleOrDefault
+
+		QuerySingleOrDefaultAsync
+
+		Execute
+
+		ExecuteAsync
+
+		ExecuteScalar
+
+		ExecuteScalarAsync
+
+		ExecuteReader
+
+		ExecuteReaderAsync
+		
+		1. QueryAsync
+		
+																														Dapper Methods Explained with Examples
+ 
+ 
+ Fetches multiple rows asynchronously and maps them to a list of objects.
+ Example:
+ var employees = await connection.QueryAsync<EmployeeDetails>("SELECT * FROM EmployeeDetails");
+ 
+ 
+ 2. Query
+ Fetches multiple rows synchronously.
+ Example:
+ var employees = connection.Query<EmployeeDetails>("SELECT * FROM EmployeeDetails");
+ 
+ 
+ 3. QueryFirstAsync
+ Fetches the first row asynchronously.
+ Example:
+ var employee = await connection.QueryFirstAsync<EmployeeDetails>("SELECT * FROM EmployeeDetails WHERE
+ EmployeeID = @id", new { id = 1 });
+ 
+ 
+ 4. QueryFirst
+ Fetches the first row synchronously.
+ Example:
+ var employee = connection.QueryFirst<EmployeeDetails>("SELECT * FROM EmployeeDetails WHERE EmployeeID =
+ @id", new { id = 1 });
+ 
+ 
+ 5. QueryFirstOrDefault
+ Returns the first row or default (null) synchronously.
+ Example:
+ var emp = connection.QueryFirstOrDefault<EmployeeDetails>("SELECT * FROM EmployeeDetails WHERE
+ EmployeeID = @id", new { id = 100 });
+ 
+ 
+ 6. QueryFirstOrDefaultAsync
+ Async version of QueryFirstOrDefault.
+ Example:
+ var emp = await connection.QueryFirstOrDefaultAsync<EmployeeDetails>("SELECT * FROM EmployeeDetails WHERE
+ EmployeeID = @id", new { id = 100 });
+ 
+ 
+7. Execute
+ Dapper Methods Explained with Examples
+ Runs INSERT, UPDATE, DELETE commands synchronously.
+ Example:
+ int rows = connection.Execute("DELETE FROM EmployeeDetails WHERE EmployeeID = @id", new { id = 5 });
+ 
+ 
+ 8. ExecuteAsync
+ Async version of Execute.
+ Example:
+ int rows = await connection.ExecuteAsync("DELETE FROM EmployeeDetails WHERE EmployeeID = @id", new { id = 5
+ });
+ 
+ 
+ 9. ExecuteScalar
+ Returns a single value synchronously.
+ Example:
+ int count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM EmployeeDetails");
+ 
+ 
+ 10. ExecuteScalarAsync
+ Async version of ExecuteScalar.
+ Example:
+ int count = await connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM EmployeeDetails");
+ 
+ 
+ 11. ExecuteReader
+ Reads rows manually using a data reader.
+ Example:
+ using (var reader = connection.ExecuteReader("SELECT * FROM EmployeeDetails"))
+ {
+    while (reader.Read())
+    {
+        Console.WriteLine(reader["FirstName"]);
+    }
+ }
+ 
+ 
+ 12. ExecuteReaderAsync
+ Async version of ExecuteReader.
+ Example:
+Dapper Methods Explained with Examples
+ using (var reader = await connection.ExecuteReaderAsync("SELECT * FROM EmployeeDetails"))
+ {
+    while (await reader.ReadAsync())
+    {
+        Console.WriteLine(reader["FirstName"]);
+    }
+ }
+ 
+ 
+ 13. QueryMultipleAsync
+ Executes a query that returns multiple result sets asynchronously.
+ Example:
+ using (var multi = await connection.QueryMultipleAsync("SELECT * FROM EmployeeDetails; SELECT * FROM
+ Departments;"))
+ {
+    var employees = (await multi.ReadAsync<EmployeeDetails>()).ToList();
+	var departments = (await multi.ReadAsync<Department>()).ToList();
+}

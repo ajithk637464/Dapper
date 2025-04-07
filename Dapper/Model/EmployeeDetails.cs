@@ -16,5 +16,16 @@ namespace Dapper.Model
         public string? Department { get; set; }
         public decimal? Salary { get; set; }
     }
+    public class Department
+    {
+        public int DepartmentID { get; set; }
+        public string DepartmentName { get; set; } = string.Empty;
+        public string? Location { get; set; }
+    }
+    public class EmpDept
+    {
+        public List<EmployeeDetails> emps { get;set; }
+        public List<Department> depts { get; set; }
 
+    }
 }

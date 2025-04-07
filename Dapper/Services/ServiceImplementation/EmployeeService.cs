@@ -21,5 +21,26 @@ namespace Dapper.Services.ServiceImplementation
         {
             return await _employeeRepo.GetEmployeeById(empId);
         }
+        public List<EmployeeDetails> GetAllEmpsUsingQuery()
+        {
+            return _employeeRepo.GetAllEmpsUsingQuery();
+        }
+        public EmployeeDetails GetEmployeeWhoWithinSalaryLimit(int salary)
+        {
+            return _employeeRepo.GetEmployeeWhoWithinSalaryLimit(salary);
+        }
+        public Task<EmployeeDetails> GetEmployeeWhoWithinSalaryLimitAsync(int salary)
+        {
+            return _employeeRepo.GetEmployeeWhoWithinSalaryLimitAsync(salary);
+        }
+        public async Task<string> DbReader()
+        {
+            return await _employeeRepo.DbReader();
+        }
+        public async Task<EmpDept> GetMultipleRows()
+        {
+            return await _employeeRepo.GetMultipleRows();
+        }
+
     }
 }
